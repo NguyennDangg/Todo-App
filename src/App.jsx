@@ -12,6 +12,7 @@ function App() {
   const [taskAdded, setTaskAdded] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [selected, setSelected] = useState([]);
+  const [deleting, setDeleting] = useState(false);
 
   const handleTaskAdded = async (text) => {
     if (!text || text.trim() === "") return;
@@ -41,7 +42,11 @@ function App() {
     });
 
     if (result.isConfirmed) {
-      await Promise.all(selected.map((id) => deleteTodo(id)));
+      setDeleting(true);
+      for (const id of selected) {
+        await deleteTodo(id);
+      }
+      setDeleting(false);
       setSelected([]);
       setRefresh((prev) => !prev);
     }
@@ -58,16 +63,24 @@ function App() {
           <TodoInput onTaskAdded={handleTaskAdded} />
           {selected.length > 0 && (
             <motion.button
-              className="delete-selected"
+              className={`delete-selected ${deleting ? "delete-selected--loading" : ""}`}
               onClick={handleDeleteSelected}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
+              whileHover={{ scale: deleting ? 1 : 1.03 }}
+              whileTap={{ scale: deleting ? 1 : 0.97 }}
             >
-              <i className="fa-solid fa-trash-can"></i> DELETE SELECTED (
-              {selected.length})
+              {deleting ? (
+                <>
+                  <i className="fa-solid fa-spinner fa-spin"></i> DELETING...
+                </>
+              ) : (
+                <>
+                  <i className="fa-solid fa-trash-can"></i> DELETE SELECTED (
+                  {selected.length})
+                </>
+              )}
             </motion.button>
           )}
           <TodoList

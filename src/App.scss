@@ -79,6 +79,12 @@ body {
   }
 }
 
+.delete-selected--loading {
+  opacity: 0.6;
+  cursor: not-allowed;
+  border-color: #ff4d4d;
+}
+
 @media (max-width: 900px) {
   .app-layout {
     flex-direction: column;
