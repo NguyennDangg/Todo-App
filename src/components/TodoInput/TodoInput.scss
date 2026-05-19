@@ -1,0 +1,47 @@
+@use '../../styles/variables' as v;
+
+.todo-input {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+
+    &__field {
+        flex: 1;
+        padding: 14px 20px;
+        background: v.$bg-secondary;
+        border: 1px solid v.$border-color;
+        border-radius: 10px;
+        color: v.$text-primary;
+        font-family: v.$font-mono;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &::placeholder {
+            color: v.$text-muted;
+        }
+
+        &:focus {
+            border-color: v.$accent-primary;
+            box-shadow: 0 0 15px v.$accent-glow;
+        }
+    }
+
+    &__button {
+        padding: 14px 24px;
+        background: v.$accent-primary;
+        color: v.$text-primary;
+        border: none;
+        border-radius: 10px;
+        font-family: v.$font-mono;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        cursor: pointer;
+        transition: background 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            background: v.$accent-secondary;
+            box-shadow: 0 0 20px v.$accent-glow;
+        }
+    }
+}

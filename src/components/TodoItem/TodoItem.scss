@@ -1,0 +1,102 @@
+@use "../../styles/variables" as v;
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 20px;
+  background: v.$bg-card;
+  border: 1px solid v.$border-color;
+  border-radius: 10px;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &:hover {
+    border-color: v.$accent-primary;
+    box-shadow: 0 0 15px v.$accent-glow;
+  }
+
+  &--done {
+    opacity: 0.5;
+
+    .todo-item__text {
+      text-decoration: line-through;
+      color: v.$text-muted;
+    }
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: v.$accent-primary;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  &__text {
+    font-family: v.$font-mono;
+    font-size: 0.95rem;
+    color: v.$text-primary;
+  }
+
+  &__date {
+    font-family: v.$font-mono;
+    font-size: 0.72rem;
+    color: v.$text-muted;
+    letter-spacing: 1px;
+  }
+
+  &__edit-field {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid v.$accent-primary;
+    color: v.$text-primary;
+    font-family: v.$font-mono;
+    font-size: 0.95rem;
+    outline: none;
+    width: 100%;
+    padding: 4px 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 10px;
+    flex-shrink: 0;
+  }
+
+  &__btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 6px;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+
+    &--edit {
+      color: v.$color-edit;
+    }
+    &--save {
+      color: v.$color-done;
+    }
+    &--delete {
+      color: v.$color-delete;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+  }
+  &--selected {
+    border-color: v.$color-delete;
+    background: rgba(255, 77, 77, 0.05);
+  }
+}

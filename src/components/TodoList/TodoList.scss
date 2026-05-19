@@ -1,0 +1,28 @@
+@use '../../styles/variables' as v;
+
+.todo-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    &__loading {
+        font-family: v.$font-mono;
+        color: v.$text-muted;
+        letter-spacing: 3px;
+        font-size: 0.85rem;
+        text-align: center;
+        padding: 40px 0;
+    }
+
+    &__empty {
+        font-family: v.$font-mono;
+        color: v.$text-muted;
+        letter-spacing: 3px;
+        font-size: 0.85rem;
+        text-align: center;
+        padding: 40px 0;
+        border: 1px dashed v.$border-color;
+        border-radius: 10px;
+    }
+}

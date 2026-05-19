@@ -1,0 +1,36 @@
+@use "../../styles/variables" as v;
+@use "../../styles/animation";
+
+.mio-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  position: sticky;
+  top: 40px;
+}
+
+.mio-float-container {
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mio-image {
+  width: 280px;
+  height: auto;
+  object-fit: cover;
+  cursor: pointer;
+  animation:
+    float 3s ease-in-out infinite,
+    glow-pulse 3s ease-in-out infinite;
+
+  will-change: transform, filter;
+
+  &:hover {
+    filter: drop-shadow(0 0 35px rgba(107, 140, 186, 1));
+    animation-play-state: paused;
+  }
+}
