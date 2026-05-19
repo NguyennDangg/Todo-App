@@ -37,14 +37,14 @@
 
 @media (max-width: 900px) {
   .mio-wrapper {
-    position: static; /* remove sticky on mobile */
+    position: static;
   }
 
   .mio-float-container {
-    height: 220px; /* smaller on mobile */
+    height: 220px;
   }
 
   .mio-image {
-    width: 180px; /* smaller on mobile */
+    width: 180px;
   }
 }
