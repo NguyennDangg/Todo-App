@@ -12,10 +12,10 @@
 }
 
 .mio-float-container {
-    height: 380px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  height: 380px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .mio-image {
@@ -32,5 +32,19 @@
   &:hover {
     filter: drop-shadow(0 0 35px rgba(107, 140, 186, 1));
     animation-play-state: paused;
+  }
+}
+
+@media (max-width: 900px) {
+  .mio-wrapper {
+    position: static; /* remove sticky on mobile */
+  }
+
+  .mio-float-container {
+    height: 220px; /* smaller on mobile */
+  }
+
+  .mio-image {
+    width: 180px; /* smaller on mobile */
   }
 }

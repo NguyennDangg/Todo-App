@@ -86,9 +86,20 @@ body {
 }
 
 @media (max-width: 900px) {
+  .app-title {
+    font-size: 1.2rem;
+    padding: 20px 20px 15px;
+    letter-spacing: 4px;
+  }
+
   .app-layout {
     flex-direction: column;
     align-items: center;
     padding: 40px 20px;
+  }
+
+  .todo-section {
+    width: 100%;
+    max-width: 100%;
   }
 }
