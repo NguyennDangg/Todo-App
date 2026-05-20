@@ -35,6 +35,40 @@
   }
 }
 
+.mio-bubble {
+  max-width: 280px;
+  padding: 10px 16px;
+  background: v.$bg-secondary;
+  border: 1px solid v.$border-color;
+  border-radius: 12px;
+  border-bottom-left-radius: 4px;
+  font-family: v.$font-mono;
+  font-size: 0.78rem;
+  color: v.$text-secondary;
+  letter-spacing: 1px;
+  line-height: 1.6;
+  text-align: center;
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid v.$border-color;
+  }
+}
+
+@media (max-width: 900px) {
+  .mio-bubble {
+    max-width: 100%;
+    font-size: 0.72rem;
+  }
+}
+
 @media (max-width: 900px) {
   .mio-wrapper {
     position: static;
