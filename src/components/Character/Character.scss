@@ -70,8 +70,18 @@
 }
 
 @media (max-width: 900px) {
+  .mio-bubble {
+    max-width: 220px;
+    font-size: 0.72rem;
+    padding: 8px 12px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
   .mio-wrapper {
     position: static;
+    width: 100%;
+    align-items: center;
   }
 
   .mio-float-container {

@@ -8,15 +8,15 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
   const [editing, setEditing] = useState(false);
   const [editText, setEditText] = useState(todo.content);
 
-  const isSelected = selected.includes(todo.id)
+  const isSelected = selected.includes(todo.id);
 
   const handleSelect = () => {
     if (isSelected) {
-      setSelected(prev => prev.filter(id => id !== todo.id))
+      setSelected((prev) => prev.filter((id) => id !== todo.id));
     } else {
-      setSelected(prev => [...prev, todo.id])
+      setSelected((prev) => [...prev, todo.id]);
     }
-  }
+  };
 
   const handleDelete = async () => {
     const result = await Swal.fire({
@@ -35,6 +35,8 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
 
     if (result.isConfirmed) {
       await deleteTodo(todo.id);
+      // remove from selected if it was checked
+      setSelected((prev) => prev.filter((id) => id !== todo.id));
       onRefresh();
     }
   };
@@ -58,7 +60,7 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
 
   return (
     <motion.li
-      className={`todo-item ${todo.isCompleted ? 'todo-item--done' : ''} ${isSelected ? 'todo-item--selected' : ''}`}
+      className={`todo-item ${todo.isCompleted ? "todo-item--done" : ""} ${isSelected ? "todo-item--selected" : ""}`}
       variants={{
         hidden: { opacity: 0, y: 20 },
         visible: { opacity: 1, y: 0 },
