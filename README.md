@@ -76,7 +76,7 @@ src/
 
 <div align="center">
 
-*noise in my head — code in my hands*
+*scenario complete. feelings irrelevant.*
 
 **[NguyennDangg](https://github.com/NguyennDangg)** · 2026
 
