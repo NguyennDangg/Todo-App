@@ -1,13 +1,45 @@
+@use "variables" as v;
+
+// ------------------------------------------------------------
+// Keyframes — subtle, slow, never distracting
+// ------------------------------------------------------------
 @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-12px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
 }
 
 @keyframes glow-pulse {
-    0%, 100% { 
-        filter: drop-shadow(0 0 15px rgba(107, 140, 186, 0.4)); 
-    }
-    50% { 
-        filter: drop-shadow(0 0 30px rgba(107, 140, 186, 0.9)); 
-    }
+  0%,
+  100% {
+    filter: drop-shadow(0 0 12px v.$accent-glow);
+  }
+  50% {
+    filter: drop-shadow(0 0 24px rgba(107, 140, 186, 0.55));
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ------------------------------------------------------------
+// Animations are decoration only: disable when the user asks
+// for reduced motion.
+// ------------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .mio-image {
+    animation: none !important;
+  }
 }

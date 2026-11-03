@@ -1,47 +1,79 @@
-@use '../../styles/variables' as v;
+@use "../../styles/variables" as v;
 
 .todo-input {
-    display: flex;
-    gap: 12px;
-    width: 100%;
+  display: flex;
+  gap: v.$space-sm;
+  width: 100%;
+
+  &__field {
+    flex: 1;
+    min-width: 0;
+    padding: 14px v.$space-md;
+    background: v.$bg-secondary;
+    border: 1px solid v.$border-color;
+    border-radius: v.$radius-md;
+    color: v.$text-primary;
+    font-family: v.$font-mono;
+    font-size: v.$font-size-base;
+    outline: none;
+    transition:
+      border-color v.$transition-base,
+      box-shadow v.$transition-base;
+
+    &::placeholder {
+      color: v.$text-muted;
+      letter-spacing: v.$letter-tight;
+    }
+
+    &:focus {
+      border-color: v.$accent-primary;
+      box-shadow: 0 0 15px v.$accent-glow;
+    }
+
+    @include v.focus-ring;
+  }
+
+  &__button {
+    flex-shrink: 0;
+    padding: 14px v.$space-lg;
+    background: v.$accent-primary;
+    color: v.$bg-primary;
+    border: none;
+    border-radius: v.$radius-md;
+    font-family: v.$font-mono;
+    font-size: v.$font-size-sm;
+    font-weight: v.$font-weight-bold;
+    letter-spacing: v.$letter-base;
+    cursor: pointer;
+    transition:
+      background v.$transition-base,
+      box-shadow v.$transition-base;
+
+    &:hover:not(:disabled) {
+      background: v.$accent-secondary;
+      box-shadow: 0 0 20px v.$accent-glow;
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+
+    @include v.focus-ring;
+  }
+}
+
+@media (max-width: 360px) {
+  .todo-input {
+    gap: v.$space-xs;
 
     &__field {
-        flex: 1;
-        padding: 14px 20px;
-        background: v.$bg-secondary;
-        border: 1px solid v.$border-color;
-        border-radius: 10px;
-        color: v.$text-primary;
-        font-family: v.$font-mono;
-        font-size: 0.95rem;
-        outline: none;
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
-
-        &::placeholder {
-            color: v.$text-muted;
-        }
-
-        &:focus {
-            border-color: v.$accent-primary;
-            box-shadow: 0 0 15px v.$accent-glow;
-        }
+      padding: 12px v.$space-sm;
     }
 
     &__button {
-        padding: 14px 24px;
-        background: v.$accent-primary;
-        color: v.$text-primary;
-        border: none;
-        border-radius: 10px;
-        font-family: v.$font-mono;
-        font-size: 0.9rem;
-        letter-spacing: 2px;
-        cursor: pointer;
-        transition: background 0.3s ease, box-shadow 0.3s ease;
-
-        &:hover {
-            background: v.$accent-secondary;
-            box-shadow: 0 0 20px v.$accent-glow;
-        }
+      padding: 12px v.$space-md;
+      letter-spacing: v.$letter-tight;
     }
+  }
 }

@@ -1,28 +1,77 @@
 @use '../../styles/variables' as v;
 
+// ------------------------------------------------------------
+// Filter bar
+// ------------------------------------------------------------
+.todo-filter {
+  display: flex;
+  gap: v.$space-sm;
+  flex-wrap: wrap;
+}
+
+.todo-filter__btn {
+  background: transparent;
+  border: 1px solid v.$border-color;
+  color: v.$text-secondary;
+  font-family: v.$font-mono;
+  font-size: v.$font-size-xs;
+  letter-spacing: v.$letter-base;
+  padding: 8px v.$space-md;
+  border-radius: v.$radius-full;
+  cursor: pointer;
+  transition:
+    border-color v.$transition-base,
+    color v.$transition-base,
+    background v.$transition-base,
+    box-shadow v.$transition-base;
+
+  &:hover {
+    border-color: v.$border-hover;
+    color: v.$text-primary;
+  }
+
+  &--active {
+    border-color: v.$accent-primary;
+    color: v.$text-primary;
+    background: v.$accent-wash;
+    box-shadow: 0 0 12px v.$accent-glow;
+  }
+
+  @include v.focus-ring;
+}
+
+// ------------------------------------------------------------
+// List
+// ------------------------------------------------------------
 .todo-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: v.$space-sm;
+}
 
-    &__loading {
-        font-family: v.$font-mono;
-        color: v.$text-muted;
-        letter-spacing: 3px;
-        font-size: 0.85rem;
-        text-align: center;
-        padding: 40px 0;
-    }
+.todo-list__loading,
+.todo-list__empty {
+  font-family: v.$font-mono;
+  color: v.$text-muted;
+  letter-spacing: v.$letter-wide;
+  font-size: v.$font-size-sm;
+  text-align: center;
+  padding: v.$space-2xl 0;
+}
 
-    &__empty {
-        font-family: v.$font-mono;
-        color: v.$text-muted;
-        letter-spacing: 3px;
-        font-size: 0.85rem;
-        text-align: center;
-        padding: 40px 0;
-        border: 1px dashed v.$border-color;
-        border-radius: 10px;
+.todo-list__empty {
+  border: 1px dashed v.$border-color;
+  border-radius: v.$radius-md;
+}
+
+@media (max-width: 360px) {
+  .todo-filter {
+    gap: v.$space-xs;
+
+    &__btn {
+      padding: 6px 10px;
+      letter-spacing: v.$letter-tight;
     }
+  }
 }

@@ -1,26 +1,106 @@
-// Background
-$bg-primary: #0d0f14;
-$bg-secondary: #111420;
-$bg-card: rgba(107, 140, 186, 0.05);
+// ============================================================
+// TASK TERMINAL — design tokens
+// Single source of truth. Do not hardcode colours, spacing,
+// sizes or timings in component styles; use these tokens.
+// ============================================================
 
-// Accent — Mio blue
+// Surface
+$bg-primary: #0a0c10;
+$bg-secondary: #111420;
+$bg-elevated: #161a26;
+$bg-card: rgba(107, 140, 186, 0.04);
+$bg-card-hover: rgba(107, 140, 186, 0.08);
+
+// Accent — Mio blue (NERV)
 $accent-primary: #6b8cba;
 $accent-secondary: #a8c4e0;
-$accent-glow: rgba(107, 140, 186, 0.25);
+$accent-glow: rgba(107, 140, 186, 0.3);
+$accent-wash: rgba(107, 140, 186, 0.1);
 
 // Text
 $text-primary: #f0f2f5;
-$text-secondary: #aaaaaa;
-$text-muted: #555566;
+$text-secondary: #b8bcc4;
+$text-muted: #62667a;
+$text-dim: #3a3d4a;
 
 // Status
 $color-done: #4ade80;
 $color-delete: #ff4d4d;
+$color-delete-wash: rgba(255, 77, 77, 0.08);
 $color-edit: #6b8cba;
+$color-warning: #f59e0b;
 
 // Border
-$border-color: rgba(107, 140, 186, 0.2);
-$border-hover: #6b8cba;
+$border-color: rgba(107, 140, 186, 0.15);
+$border-hover: rgba(107, 140, 186, 0.4);
+$border-active: #6b8cba;
+$border-hairline: rgba(107, 140, 186, 0.1);
 
-// Font
-$font-mono: 'Roboto Mono', monospace;
+// Radius
+$radius-sm: 6px;
+$radius-md: 10px;
+$radius-lg: 14px;
+$radius-full: 999px;
+
+// Spacing scale
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+$space-2xl: 48px;
+$space-3xl: 64px;
+
+// Typography
+$font-mono: "Roboto Mono", "Courier New", monospace;
+
+$font-size-xs: 0.7rem;
+$font-size-sm: 0.8rem;
+$font-size-base: 0.95rem;
+$font-size-lg: 1.1rem;
+$font-size-xl: 1.4rem;
+$font-size-2xl: 1.8rem;
+$font-size-3xl: 2.2rem;
+
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+
+$line-height-tight: 1.25;
+$line-height-base: 1.6;
+$line-height-loose: 1.8;
+
+$letter-tight: 0.02em;
+$letter-base: 0.08em;
+$letter-wide: 0.2em;
+$letter-wider: 0.35em;
+
+// Focus (visible keyboard focus everywhere)
+$focus-width: 2px;
+$focus-offset: 3px;
+$focus-color: $accent-secondary;
+
+// Animation
+$transition-fast: 0.15s ease;
+$transition-base: 0.25s ease;
+$transition-slow: 0.4s ease;
+
+// Layout
+$measure: 620px;
+$page-gutter: 80px;
+$page-gutter-md: 40px;
+$page-gutter-sm: 20px;
+
+// Breakpoints
+$breakpoint-xs: 360px;
+$breakpoint-sm: 480px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
+
+// Reusable focus ring
+@mixin focus-ring {
+  &:focus-visible {
+    outline: $focus-width solid $focus-color;
+    outline-offset: $focus-offset;
+  }
+}
