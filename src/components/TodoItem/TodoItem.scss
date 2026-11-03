@@ -3,27 +3,39 @@
 .todo-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 16px 20px;
+  gap: v.$space-md;
+  padding: v.$space-md v.$space-lg;
   background: v.$bg-card;
   border: 1px solid v.$border-color;
-  border-radius: 10px;
+  border-radius: v.$radius-md;
   transition:
-    border-color 0.3s ease,
-    box-shadow 0.3s ease;
+    border-color v.$transition-base,
+    box-shadow v.$transition-base,
+    opacity v.$transition-base;
 
   &:hover {
-    border-color: v.$accent-primary;
+    border-color: v.$border-hover;
     box-shadow: 0 0 15px v.$accent-glow;
   }
 
+  // Done state — clear but quiet
   &--done {
-    opacity: 0.5;
+    opacity: 0.55;
 
     .todo-item__text {
       text-decoration: line-through;
+      text-decoration-color: v.$accent-primary;
       color: v.$text-muted;
     }
+
+    .todo-item__date {
+      color: v.$text-dim;
+    }
+  }
+
+  &--selected {
+    border-color: v.$color-delete;
+    background: v.$color-delete-wash;
   }
 
   &__checkbox {
@@ -32,26 +44,31 @@
     accent-color: v.$accent-primary;
     cursor: pointer;
     flex-shrink: 0;
+
+    @include v.focus-ring;
   }
 
   &__content {
     flex: 1;
+    min-width: 0;
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 2px;
   }
 
   &__text {
     font-family: v.$font-mono;
-    font-size: 0.95rem;
+    font-size: v.$font-size-base;
     color: v.$text-primary;
+    line-height: v.$line-height-tight;
+    overflow-wrap: anywhere;
   }
 
   &__date {
     font-family: v.$font-mono;
-    font-size: 0.72rem;
+    font-size: v.$font-size-xs;
     color: v.$text-muted;
-    letter-spacing: 1px;
+    letter-spacing: v.$letter-tight;
   }
 
   &__edit-field {
@@ -60,15 +77,17 @@
     border-bottom: 1px solid v.$accent-primary;
     color: v.$text-primary;
     font-family: v.$font-mono;
-    font-size: 0.95rem;
+    font-size: v.$font-size-base;
     outline: none;
     width: 100%;
     padding: 4px 0;
+
+    @include v.focus-ring;
   }
 
   &__actions {
     display: flex;
-    gap: 10px;
+    gap: v.$space-xs;
     flex-shrink: 0;
   }
 
@@ -78,9 +97,12 @@
     cursor: pointer;
     font-size: 1rem;
     padding: 6px;
-    border-radius: 6px;
-    transition: background 0.2s ease;
+    border-radius: v.$radius-sm;
+    transition: background v.$transition-fast;
 
+    &--complete {
+      color: v.$color-done;
+    }
     &--edit {
       color: v.$color-edit;
     }
@@ -92,11 +114,26 @@
     }
 
     &:hover {
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(255, 255, 255, 0.06);
     }
+
+    @include v.focus-ring;
   }
-  &--selected {
-    border-color: v.$color-delete;
-    background: rgba(255, 77, 77, 0.05);
+}
+
+@media (max-width: 480px) {
+  .todo-item {
+    gap: v.$space-sm;
+    padding: v.$space-sm v.$space-md;
+    align-items: flex-start;
+
+    &__actions {
+      gap: 2px;
+    }
+
+    &__btn {
+      font-size: 0.9rem;
+      padding: 5px;
+    }
   }
 }

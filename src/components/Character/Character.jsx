@@ -19,44 +19,38 @@ const mioLines = [
   "Focus.",
 ];
 
+const randomLine = () => mioLines[Math.floor(Math.random() * mioLines.length)];
+
 function MioCharacter({ taskAdded }) {
-  const [expression, setExpression] = useState("idle");
+  const [hovering, setHovering] = useState(false);
   const [line, setLine] = useState(mioLines[0]);
 
-  // cycle random line every 8 seconds
+  // cycle random line every 10 seconds
   useEffect(() => {
     const interval = setInterval(() => {
-      const random = mioLines[Math.floor(Math.random() * mioLines.length)];
-      setLine(random);
+      setLine(randomLine());
     }, 10000);
     return () => clearInterval(interval);
   }, []);
 
-  // react to task added
-  useEffect(() => {
-    if (taskAdded) {
-      setExpression("yaho");
-      setLine("Task added. Good.");
-      setTimeout(() => {
-        setExpression("idle");
-        setLine(mioLines[Math.floor(Math.random() * mioLines.length)]);
-      }, 1500);
-    }
-  }, [taskAdded]);
+  // Derived during render — no effect needed. App resets `taskAdded`
+  // after 1.5s, which returns Mio to her idle state automatically.
+  const expression = taskAdded ? "yaho" : hovering ? "heh" : "idle";
+  const displayLine = taskAdded ? "Task added. Good." : line;
 
   return (
     <div className="mio-wrapper">
       {/* speech bubble */}
       <AnimatePresence mode="wait">
         <motion.div
-          key={line}
+          key={displayLine}
           className="mio-bubble"
           initial={{ opacity: 0, y: -8 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 8 }}
           transition={{ duration: 0.4 }}
         >
-          {line}
+          {displayLine}
         </motion.div>
       </AnimatePresence>
 
@@ -71,13 +65,10 @@ function MioCharacter({ taskAdded }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            onMouseEnter={() => {
-              setExpression("heh");
-              setLine("Why are you hovering over me.");
-            }}
+            onMouseEnter={() => setHovering(true)}
             onMouseLeave={() => {
-              setExpression("idle");
-              setLine(mioLines[Math.floor(Math.random() * mioLines.length)]);
+              setHovering(false);
+              setLine(randomLine());
             }}
           />
         </AnimatePresence>

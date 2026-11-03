@@ -1,7 +1,7 @@
 @use "../../styles/variables" as v;
 
 .footer {
-  padding: 30px 10%;
+  padding: v.$space-xl v.$page-gutter;
   font-family: v.$font-mono;
   color: v.$text-muted;
   margin-top: auto;
@@ -16,7 +16,7 @@
     v.$accent-primary,
     transparent
   );
-  margin-bottom: 24px;
+  margin-bottom: v.$space-lg;
 }
 
 .footer-content {
@@ -24,62 +24,78 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: v.$space-sm;
+  margin-bottom: v.$space-md;
 }
 
 .footer-copy {
-  font-size: 0.8rem;
+  font-size: v.$font-size-sm;
   color: v.$text-muted;
+  letter-spacing: v.$letter-tight;
 
   span {
     color: v.$text-primary;
-    letter-spacing: 2px;
-    text-shadow: 0 0 15px #ff0000;
-    transition:
-      text-shadow 0.3s ease,
-      transform 0.3s ease;
+    letter-spacing: v.$letter-base;
+    text-shadow: 0 0 14px v.$accent-glow;
+    transition: text-shadow v.$transition-base;
 
     &:hover {
       text-shadow:
-        0 0 20px v.$accent-primary,
-        0 0 40px v.$accent-glow;
-      transform: scale(1);
+        0 0 18px v.$accent-primary,
+        0 0 34px v.$accent-glow;
     }
   }
 }
 
 .footer-built {
-  font-size: 0.72rem;
+  font-size: v.$font-size-xs;
   color: v.$text-muted;
-  letter-spacing: 2px;
+  letter-spacing: v.$letter-base;
 }
 
 .footer-credits {
   text-align: center;
-  font-size: 0.7rem;
-  letter-spacing: 2px;
-  border-top: 1px solid rgba(107, 140, 186, 0.1);
-  padding-top: 16px;
+  font-size: v.$font-size-xs;
+  letter-spacing: v.$letter-base;
+  border-top: 1px solid v.$border-hairline;
+  padding-top: v.$space-md;
 }
 
 .credits-list {
-  margin-top: 8px;
+  margin-top: v.$space-sm;
 
   a {
     color: v.$text-muted;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color v.$transition-fast;
 
     &:hover {
       color: v.$accent-primary;
     }
+
+    @include v.focus-ring;
   }
 }
 
 @media (max-width: 768px) {
+  .footer {
+    padding: v.$space-lg v.$page-gutter-md;
+  }
+
   .footer-content {
     flex-direction: column;
     text-align: center;
+  }
+}
+
+@media (max-width: 360px) {
+  .footer {
+    padding: v.$space-md v.$page-gutter-sm;
+  }
+
+  .footer-copy,
+  .footer-built,
+  .footer-credits {
+    letter-spacing: v.$letter-tight;
   }
 }

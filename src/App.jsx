@@ -14,6 +14,17 @@ function App() {
   const [selected, setSelected] = useState([]);
   const [deleting, setDeleting] = useState(false);
 
+  const showError = (title, text) =>
+    Swal.fire({
+      title,
+      text,
+      icon: "error",
+      confirmButtonColor: "#6b8cba",
+      background: "#0d0f14",
+      color: "#f0f2f5",
+      fontFamily: "Roboto Mono, monospace",
+    });
+
   const handleTaskAdded = async (text) => {
     if (!text || text.trim() === "") return;
     try {
@@ -22,8 +33,8 @@ function App() {
       setTaskAdded(true);
       setRefresh((prev) => !prev);
       setTimeout(() => setTaskAdded(false), 1500);
-    } catch (error) {
-      alert("Failed to save task. Check console for details.");
+    } catch {
+      await showError("Failed to save task", "Could not add your task. Please try again.");
     }
   };
 
@@ -39,16 +50,22 @@ function App() {
       cancelButtonText: "Cancel",
       background: "#0d0f14",
       color: "#f0f2f5",
+      fontFamily: "Roboto Mono, monospace",
     });
 
     if (result.isConfirmed) {
       setDeleting(true);
-      for (const id of selected) {
-        await deleteTodo(id);
+      try {
+        for (const id of selected) {
+          await deleteTodo(id);
+        }
+        setSelected([]);
+        setRefresh((prev) => !prev);
+      } catch {
+        await showError("Delete failed", "Could not delete some tasks. Please try again.");
+      } finally {
+        setDeleting(false);
       }
-      setDeleting(false);
-      setSelected([]);
-      setRefresh((prev) => !prev);
     }
   };
 
@@ -70,6 +87,8 @@ function App() {
               exit={{ opacity: 0, y: -10 }}
               whileHover={{ scale: deleting ? 1 : 1.03 }}
               whileTap={{ scale: deleting ? 1 : 0.97 }}
+              disabled={deleting}
+              aria-label={`Delete ${selected.length} selected tasks`}
             >
               {deleting ? (
                 <>

@@ -10,6 +10,17 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
 
   const isSelected = selected.includes(todo.id);
 
+  const showError = (title, text) =>
+    Swal.fire({
+      title,
+      text,
+      icon: "error",
+      confirmButtonColor: "#6b8cba",
+      background: "#0d0f14",
+      color: "#f0f2f5",
+      fontFamily: "Roboto Mono, monospace",
+    });
+
   const handleSelect = () => {
     if (isSelected) {
       setSelected((prev) => prev.filter((id) => id !== todo.id));
@@ -34,23 +45,37 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
     });
 
     if (result.isConfirmed) {
-      await deleteTodo(todo.id);
-      // remove from selected if it was checked
-      setSelected((prev) => prev.filter((id) => id !== todo.id));
-      onRefresh();
+      try {
+        await deleteTodo(todo.id);
+        setSelected((prev) => prev.filter((id) => id !== todo.id));
+        onRefresh();
+      } catch {
+        await showError("Delete failed", "Could not delete this task. Please try again.");
+      }
     }
   };
 
   const handleToggle = async () => {
-    await toggleTodo(todo.id, !todo.isCompleted);
-    onRefresh();
+    try {
+      await toggleTodo(todo.id, !todo.isCompleted);
+      onRefresh();
+    } catch {
+      await showError(
+        "Update failed",
+        "Could not change the completion status. Please try again.",
+      );
+    }
   };
 
   const handleUpdate = async () => {
     if (editText.trim() === "") return;
-    await updateTodo(todo.id, editText);
-    setEditing(false);
-    onRefresh();
+    try {
+      await updateTodo(todo.id, editText);
+      setEditing(false);
+      onRefresh();
+    } catch {
+      await showError("Save failed", "Could not save your changes. Please try again.");
+    }
   };
 
   const formatDate = (dateStr) => {
@@ -73,6 +98,7 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
         className="todo-item__checkbox"
         checked={isSelected}
         onChange={handleSelect}
+        aria-label="Select task for deletion"
       />
 
       <div className="todo-item__content">
@@ -93,12 +119,23 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
       </div>
 
       <div className="todo-item__actions">
+        <motion.button
+          className={`todo-item__btn todo-item__btn--complete`}
+          onClick={handleToggle}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label={todo.isCompleted ? "Mark as incomplete" : "Mark as complete"}
+          title={todo.isCompleted ? "Mark as incomplete" : "Mark as complete"}
+        >
+          <i className={`fa-solid ${todo.isCompleted ? "fa-rotate-left" : "fa-circle-check"}`}></i>
+        </motion.button>
         {editing ? (
           <motion.button
             className="todo-item__btn todo-item__btn--save"
             onClick={handleUpdate}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Save"
           >
             <i className="fa-solid fa-check"></i>
           </motion.button>
@@ -106,8 +143,9 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
           <motion.button
             className="todo-item__btn todo-item__btn--edit"
             onClick={() => setEditing(true)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            aria-label="Edit task"
           >
             <i className="fa-solid fa-pen-to-square"></i>
           </motion.button>
@@ -115,8 +153,9 @@ function TodoItem({ todo, onRefresh, selected, setSelected }) {
         <motion.button
           className="todo-item__btn todo-item__btn--delete"
           onClick={handleDelete}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          aria-label="Delete task"
         >
           <i className="fa-solid fa-trash-can"></i>
         </motion.button>

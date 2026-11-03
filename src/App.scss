@@ -1,105 +1,113 @@
 @use "./styles/variables" as v;
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: v.$bg-primary;
-  color: v.$text-primary;
-  font-family: v.$font-mono;
-  min-height: 100vh;
-  overflow-x: hidden;
-}
-
 .app {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
 
+// ------------------------------------------------------------
+// Title — editorial masthead
+// ------------------------------------------------------------
 .app-title {
   text-align: center;
-  padding: 40px 20px 20px;
-  font-size: 1.8rem;
-  letter-spacing: 6px;
+  padding: v.$space-2xl v.$page-gutter-sm v.$space-lg;
+  font-size: clamp(1.4rem, 4vw, v.$font-size-2xl);
+  font-weight: v.$font-weight-bold;
+  letter-spacing: v.$letter-wider;
   color: v.$text-primary;
-  text-shadow: 0 0 20px v.$accent-glow;
+  text-shadow: 0 0 24px v.$accent-glow;
   border-bottom: 1px solid v.$border-color;
-  display: inline-block;
-  width: 100%;
-  transition:
-    text-shadow 0.3s ease,
-    transform 0.3s ease;
-
-  &:hover {
-    text-shadow:
-      0 0 20px v.$accent-primary,
-      0 0 40px v.$accent-glow;
-    transform: scale(1);
-  }
 }
 
+// ------------------------------------------------------------
+// Layout
+// ------------------------------------------------------------
 .app-layout {
   display: flex;
   flex: 1;
-  gap: 60px;
-  padding: 60px 80px;
+  gap: v.$space-3xl;
+  padding: v.$space-2xl v.$page-gutter;
   align-items: flex-start;
   justify-content: center;
-  overflow: hidden;
 }
 
 .todo-section {
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: v.$space-lg;
   flex: 1;
-  max-width: 600px;
+  max-width: v.$measure;
 }
 
+// ------------------------------------------------------------
+// Delete selected
+// ------------------------------------------------------------
 .delete-selected {
   width: 100%;
   padding: 12px 20px;
   background: transparent;
-  border: 1px solid #ff4d4d;
-  color: #ff4d4d;
-  font-family: "Roboto Mono", monospace;
-  font-size: 0.85rem;
-  letter-spacing: 2px;
-  border-radius: 10px;
+  border: 1px solid v.$color-delete;
+  color: v.$color-delete;
+  font-family: v.$font-mono;
+  font-size: v.$font-size-sm;
+  letter-spacing: v.$letter-base;
+  border-radius: v.$radius-md;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition:
+    background v.$transition-base,
+    box-shadow v.$transition-base;
 
-  &:hover {
-    background: rgba(255, 77, 77, 0.1);
+  &:hover:not(:disabled) {
+    background: v.$color-delete-wash;
     box-shadow: 0 0 15px rgba(255, 77, 77, 0.2);
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  @include v.focus-ring;
 }
 
 .delete-selected--loading {
   opacity: 0.6;
   cursor: not-allowed;
-  border-color: #ff4d4d;
 }
 
+// ------------------------------------------------------------
+// Responsive
+// ------------------------------------------------------------
 @media (max-width: 900px) {
-  .app-title {
-    font-size: 1.2rem;
-    padding: 20px 20px 15px;
-    letter-spacing: 4px;
-  }
-
   .app-layout {
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: v.$space-xl v.$page-gutter-md;
+    gap: v.$space-xl;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-title {
+    padding: v.$space-lg v.$page-gutter-sm v.$space-md;
+    letter-spacing: v.$letter-wide;
   }
 
-  .todo-section {
-    width: 100%;
-    max-width: 100%;
+  .app-layout {
+    padding: v.$space-lg v.$page-gutter-sm;
+  }
+}
+
+@media (max-width: 360px) {
+  .app-title {
+    font-size: 1.2rem;
+    letter-spacing: v.$letter-base;
+  }
+
+  .app-layout {
+    padding: v.$space-md v.$space-sm;
   }
 }
